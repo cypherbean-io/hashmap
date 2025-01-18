@@ -12,4 +12,21 @@ class HashMap
     key.each_char { |char| hash_code = prime_number * hash_code + char.ord }
     hash_code
   end
+
+  def set(key, value)
+    index = hash(key) % @capacity
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    bucket = @buckets[index]
+    bucket.each do |pair|
+      if pair[0] == key
+        pair[1] = value
+        return
+      end
+    end
+    bucket << [key, value]
+    @size += 1
+  end
+
+  # Will add bucket resizing logic later
 end
