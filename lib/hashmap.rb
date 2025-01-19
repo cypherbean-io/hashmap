@@ -41,4 +41,8 @@ class HashMap
     nil
   end
 
+  def has?(key)
+    !get(key).nil?
+  end
+
 end
