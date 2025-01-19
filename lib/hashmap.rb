@@ -63,4 +63,9 @@ class HashMap
     @size
   end
 
+  def clear
+    @buckets = Array.new(@capacity) { [] }
+    @size = 0
+  end
+
 end
