@@ -14,6 +14,7 @@ class HashMap
   end
 
   def set(key, value)
+    resize
     index = hash(key) % @capacity
     raise IndexError if index.negative? || index >= @buckets.length
 
@@ -27,8 +28,6 @@ class HashMap
     bucket << [key, value]
     @size += 1
   end
-
-  # Will add bucket resizing logic later
   
   def get(key)
     index = hash(key) % @capacity
@@ -78,5 +77,23 @@ class HashMap
 
   def entries
     @buckets.flat_map { |bucket| bucket.map { |key, value| [key, value] } }
+  end
+
+  private
+
+  def resize
+    if @size >= @capacity * @load_factor
+      new_capacity = @capacity * 2
+      new_buckets = Array.new(new_capacity) { [] }
+
+      @buckets.each do |bucket|
+        bucket.each do |key, value|
+          new_index = hash(key) % new_capacity
+          new_buckets[new_index] << [key, value]
+        end
+      end
+      @capacity = new_capacity
+      @buckets = new_buckets
+    end
   end
 end
