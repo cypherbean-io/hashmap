@@ -45,4 +45,18 @@ class HashMap
     !get(key).nil?
   end
 
+  def remove(key)
+    index = hash(key) % @capacity
+    raise IndexError if index.negative? || index >= @buckets.length
+
+    bucket = @buckets[index]
+    bucket.each_with_index do |pair, i|
+      if pair[0] == key
+        bucket.delete_at(i)
+        @size -= 1
+        return
+      end
+    end
+  end
+
 end
