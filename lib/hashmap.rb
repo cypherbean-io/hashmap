@@ -68,4 +68,11 @@ class HashMap
     @size = 0
   end
 
+  def keys
+    @buckets.flat_map { |bucket| bucket.map { |pair| pair[0] } }
+  end
+
+  def values
+    @buckets.flat_map { |bucket| bucket.map { |pair| pair[1] } }
+  end
 end
