@@ -75,4 +75,8 @@ class HashMap
   def values
     @buckets.flat_map { |bucket| bucket.map { |pair| pair[1] } }
   end
+
+  def entries
+    @buckets.flat_map { |bucket| bucket.map { |key, value| [key, value] } }
+  end
 end
