@@ -59,4 +59,8 @@ class HashMap
     end
   end
 
+  def length
+    @size
+  end
+
 end
